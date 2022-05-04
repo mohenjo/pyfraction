@@ -1,5 +1,5 @@
 """PyFraction: 파이썬 내장 `fractions.Fraction` 클래스의 재구현 및 확장
-Version: 1.0.2022.0503
+Version: 1.0.2022.0504
 Author: Haennim Park
 """
 # Python 3.10
@@ -12,9 +12,12 @@ import re
 
 
 # region Globals
+from typing import Union
+
+
 def is_fraction_form(form: str):
     """입력 인자가 분수 형태인지 확인합니다."""
-    pattern = re.compile(r"^-?[0-9]+/-?0*[1-9][0-9]*$")
+    pattern = re.compile(r"^-?\d+/-?0*[1-9]\d*$")
     return pattern.search(form) is not None
 
 
@@ -245,7 +248,7 @@ class PyFraction:
             return bound2
         return bound1
 
-    def get_Egyptian_expression(self) -> list["PyFraction"]:
+    def get_egyptian_expression(self) -> list["PyFraction"]:
         """이집트식 분수 표기법(단위 분수의 합)으로 변환합니다."""
         pyfractions: list[PyFraction] = []
         target_fraction: PyFraction = self
@@ -270,7 +273,7 @@ class PyFraction:
         return cls(num_str)
 
     @classmethod
-    def from_number(cls, number: int | float | Decimal | numbers.Rational) -> "PyFraction":
+    def from_number(cls, number: Union[int, float, Decimal, numbers.Rational]) -> "PyFraction":
         """`int`, `float`, `decimal.Decimal`, `numbers.Rational` 값으로부터 이 클래스의 인스턴스를 생성합니다."""
         return cls(number)
 
