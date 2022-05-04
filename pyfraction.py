@@ -6,18 +6,16 @@ Version: 1.0.2022.0504
 
 Author: Haennim Park
 """
-# Python 3.10
 
-from decimal import Decimal
 import fractions
 import math
 import numbers
 import re
+from decimal import Decimal
+from typing import Union
 
 
 # region Globals
-from typing import Union
-
 
 def is_fraction_form(form: str):
     """입력 인자가 분수 형태인지 확인합니다."""
@@ -84,10 +82,10 @@ class PyFraction:
             self.__denominator = numerator.denominator * denominator.numerator
         elif isinstance(numerator, str) and isinstance(denominator, str):
             if not (
-                is_fraction_form(numerator)
-                or is_fraction_form(denominator)
-                or is_numeric_form(numerator)
-                or is_numeric_form(denominator)
+                    is_fraction_form(numerator)
+                    or is_fraction_form(denominator)
+                    or is_numeric_form(numerator)
+                    or is_numeric_form(denominator)
             ):
                 raise TypeError(f"'{numerator}` 또는 `{denominator}'를 분수 형태로 변환할 수 없습니다.")
             if is_fraction_form(numerator):
@@ -183,7 +181,7 @@ class PyFraction:
         return self * other.get_reciprocal()
 
     def __pow__(self, power: int) -> "PyFraction":
-        return PyFraction(self.numerator**power, self.denominator**power)
+        return PyFraction(self.numerator ** power, self.denominator ** power)
 
     @property
     def numerator(self) -> int:
@@ -290,6 +288,5 @@ class PyFraction:
     def from_other(cls, fraction: "PyFraction") -> "PyFraction":
         """이 클래스의 인스턴스로부터 이 클래스의 인스턴스를 생성합니다."""
         return cls(fraction.numerator, fraction.denominator)
-
 
 # endregion
