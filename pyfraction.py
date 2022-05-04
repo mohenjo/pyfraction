@@ -1,5 +1,9 @@
-"""PyFraction: 파이썬 내장 `fractions.Fraction` 클래스의 재구현 및 확장
+"""PyFraction
+
+파이썬 내장 `fractions.Fraction` 클래스의 재구현 및 확장
+
 Version: 1.0.2022.0504
+
 Author: Haennim Park
 """
 # Python 3.10
@@ -36,19 +40,19 @@ def is_numeric_form(form: str):
 class PyFraction:
     """분수 클래스
 
-    이 클래스는 파이썬 built-in `fractions.Fraction` 클래스를 재구현 및 확장한 것입니다.
+    이 클래스는 파이썬 built-in fractions.Fraction 클래스를 재구현 및 확장한 것입니다.
     """
 
     def __init__(self, numerator: object, denominator: object = None) -> None:
         """이 클래스의 인스턴스를 생성합니다.
 
         Args:
-            `numerator` (`object`): 분자. 지원타입: `int`, `float`, `decimal.Decimal`, `numbers.Rational`, `str`, `PyFraction`
-            `denominator` (`object`, optional): 분모. `None`이 아닐 경우 분자와 호환되는 타입입니다. 기본값은 `None`.
+            numerator (object): 분자. 지원타입: int, float, decimal.Decimal, numbers.Rational, str, PyFraction
+            denominator (object, optional): 분모. None이 아닐 경우 분자와 호환되는 타입입니다. 기본값은 None.
 
         Raises:
-            `TypeError`: 변환 가능한 타입 또는 형식이 아닐 경우
-            `ZeroDivisionError`: 분모가 영(0)으로 주어진 경우
+            TypeError: 변환 가능한 타입 또는 형식이 아닐 경우
+            ZeroDivisionError: 분모가 영(0)으로 주어진 경우
         """
         # 분모가 주어지지 않은 경우
         if denominator is None:
@@ -193,15 +197,15 @@ class PyFraction:
 
     @property
     def members(self) -> tuple[int, int]:
-        """(분자:`int`, 분모:`int`) 형태의 `tuple` 객체를 반환합니다."""
+        """(분자:int, 분모:int) 형태의 tuple 객체를 반환합니다."""
         return self.__members
 
     def to_builtin(self) -> fractions.Fraction:
-        """이 클래스의 인스턴스에 해당하는 `fraction.Fraction` 객체를 반환합니다."""
+        """이 클래스의 인스턴스에 해당하는 fraction.Fraction 객체를 반환합니다."""
         return fractions.Fraction(self.numerator, self.denominator)
 
     def to_decimal(self) -> Decimal:
-        """`decimal.Decimal` 값으로 변환합니다."""
+        """decimal.Decimal 값으로 변환합니다."""
         return Decimal(self.numerator) / Decimal(self.denominator)
 
     def get_reciprocal(self) -> "PyFraction":
@@ -225,7 +229,7 @@ class PyFraction:
         return self.numerator // self.denominator
 
     def limit_denominator(self, max_denominator: int = 1_000_000):
-        """분모가 최대 `max_denominator`인 현재 인스턴스에 가장 가까운 인스턴스를 반환합니다. 이 메서드는 특히 순환 소수를 변환하는데 유용합니다:"""
+        """분모가 최대 max_denominator인 현재 인스턴스에 가장 가까운 인스턴스를 반환합니다. 이 메서드는 특히 순환 소수를 변환하는데 유용합니다:"""
         if max_denominator < 1:
             raise ValueError("max_denominator must be greater than 0")
         if self.denominator <= max_denominator:
@@ -269,17 +273,17 @@ class PyFraction:
 
     @classmethod
     def from_str(cls, num_str: str) -> "PyFraction":
-        """`str` 객체로부터 이 클래스의 인스턴스를 생성합니다."""
+        """str 객체로부터 이 클래스의 인스턴스를 생성합니다."""
         return cls(num_str)
 
     @classmethod
     def from_number(cls, number: Union[int, float, Decimal, numbers.Rational]) -> "PyFraction":
-        """`int`, `float`, `decimal.Decimal`, `numbers.Rational` 값으로부터 이 클래스의 인스턴스를 생성합니다."""
+        """int, float, decimal.Decimal, numbers.Rational 값으로부터 이 클래스의 인스턴스를 생성합니다."""
         return cls(number)
 
     @classmethod
     def from_builtin(cls, fraction: fractions.Fraction) -> "PyFraction":
-        """`fraction.Fraction` 객체로부터 이 클래스의 인스턴스를 생성합니다."""
+        """fraction.Fraction 객체로부터 이 클래스의 인스턴스를 생성합니다."""
         return cls(fraction.numerator, fraction.denominator)
 
     @classmethod
